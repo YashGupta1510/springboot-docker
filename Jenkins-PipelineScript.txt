@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+   
+    stages {
+        stage('Starting') {
+            steps {
+                echo 'Started pipeline'
+            }
+        }
+        stage('git'){
+            steps{
+               git branch: 'main', credentialsId: 'github-pwd', url: 'https://github.com/YashGupta1510/springboot-docker'
+            }
+        }
+        
+        stage('Building'){
+            steps{
+                bat 'mvn clean install'
+            }
+        }
+        stage('Making Docker Image'){
+            steps{
+                bat 'wsl docker build -t springboot-docker .'
+            }
+        }
+        stage('Deploying image'){
+            steps{
+                bat 'wsl docker run -d -p 9090:8084 springboot-docker'
+            }
+        }
+    }
+}
