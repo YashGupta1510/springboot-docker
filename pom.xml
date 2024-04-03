@@ -18,6 +18,7 @@
 
   <sonar.organization>devops-assignment-w3</sonar.organization>
   <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+<sonar.login>${env.SONAR_TOKEN}</sonar.login>
 
 	</properties>
 	<dependencies>
